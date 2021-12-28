@@ -23,25 +23,51 @@
         alert("할일을 입력해주세요")
     }
         else{
-        document.querySelector('#works').innerHTML += `
-            <div class="work">
-                <span id="workname">
-                    ${document.querySelector('#newWork input').value}
-                </span>
-                <button class="delete">
-                    <i class="far fa-trash-alt"></i>
-                </button>
-            </div>
-        `;
+                        
+            document.querySelector('#works').innerHTML += `
+                <div class="work">
+                    <span class="workname" >
+                        ${document.querySelector('#newWork input').value}
+                    </span>
+                    <button class"edit" onclick="edit(i)">
+                        Edit
+                    </button>
+                    <button class="delete">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                </div>
+            `;
 
-        var currentWork = document.querySelectorAll(".delete");
-        for(var i=0; i<currentWork.length; i++){
+        let currentWork = document.querySelectorAll(".delete")
+        for(let i=0; i<currentWork.length; i++){
             currentWork[i].onclick = function(){
-                this.parentNode.remove();
+                this.parentNode.remove()
             }
         }
     }
+   
 }
+    // let mywork = document.getElementById('workname')
+    // document.querySelector('.edit').onclick = function() {
+    //     let edit = prompt('mywork')
+    // }
+//     function edit() {
+//     const element = document.getElementById('workname');
+//     alert(element.innerText);
+// } 
+function edit() {
+  let currentEditWork = prompt('수정할문구를 입력해주세요', '수정할 문구를 입력해주세요')
+  if(currentEditWork == null) {
+      return
+  }
+  else {
+    const get = document.getElementsByClassName('workname')
+    for(let j=0; j<get.length; j++){
+      get[j].innerHTML = currentEditWork
+  }
+  }
+}
+
 </script>
 </body>
 </html>

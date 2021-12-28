@@ -70,3 +70,7 @@ body {
   border: 0;
   cursor: pointer;
 }
+.edit {
+  width: 40px;
+  margin-left: 80%;
+}
