@@ -12,61 +12,59 @@
     <div class="container">
         <div id="newWork">
             <input class="toDo" type="text" placeholder="할일을 입력해주세요">
-            <input id="push" class="addBtn" type="button" value="Add">
+            <input id="push" class="addBtn" type="button" value="Add" onclick="add()">
         </div>
         <div id="works"></div>
     </div>
 <script>
-    document.querySelector('#push').onclick = function
-    () {
-        if(document.querySelector('#newWork input').value.length == 0){
-        alert("할일을 입력해주세요")
-    }
-        else{
-                        
-            document.querySelector('#works').innerHTML += `
-                <div class="work">
-                    <span class="workname" >
-                        ${document.querySelector('#newWork input').value}
-                    </span>
-                    <button class"edit" onclick="edit(i)">
-                        Edit
-                    </button>
-                    <button class="delete">
-                        <i class="far fa-trash-alt"></i>
-                    </button>
-                </div>
-            `;
+    let list = []
+    function add() {
+        let work = document.querySelector(".toDo").value
 
-        let currentWork = document.querySelectorAll(".delete")
-        for(let i=0; i<currentWork.length; i++){
-            currentWork[i].onclick = function(){
-                this.parentNode.remove()
-            }
+        list.push({work})
+        insert()
+    }
+
+    function insert() {
+        console.log("insert")
+        let works = document.querySelector("#works")
+        works.innerHTML = ''
+        for(let i=0; i < list.length; i++) {
+            works.innerHTML += `
+                <div class="work">
+                    <span class="currentTODo" >
+                        ${list[i].work}
+                    </span>
+                    <div>
+                        <button class"edit" id="edit" onclick="edit(${i})">
+                        Edit
+                        </button>
+                        <button class="delete" onclick="del(${i})">
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            `
         }
     }
    
+
+function del(id) {
+    list.splice(id, 1)
+    insert()
 }
-    // let mywork = document.getElementById('workname')
-    // document.querySelector('.edit').onclick = function() {
-    //     let edit = prompt('mywork')
-    // }
-//     function edit() {
-//     const element = document.getElementById('workname');
-//     alert(element.innerText);
-// } 
-function edit() {
-  let currentEditWork = prompt('수정할문구를 입력해주세요', '수정할 문구를 입력해주세요')
-  if(currentEditWork == null) {
+
+function edit(id) {
+  let work = prompt('수정할문구를 입력해주세요', '수정할 문구를 입력해주세요')
+  if(work == null) {
       return
-  }
-  else {
-    const get = document.getElementsByClassName('workname')
-    for(let j=0; j<get.length; j++){
-      get[j].innerHTML = currentEditWork
-  }
+  } else {
+        list[id] = {work}
+        insert()
   }
 }
+
+
 
 </script>
 </body>
